@@ -1,0 +1,5 @@
+debate/league/repositories/UserRepository.class
+debate/league/classes/User.class
+debate/league/classes/Post.class
+debate/league/repositories/PostRepository.class
+debate/league/DebateLeagueApplication.class
