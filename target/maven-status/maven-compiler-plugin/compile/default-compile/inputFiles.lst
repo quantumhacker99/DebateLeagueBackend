@@ -1,5 +1,6 @@
-/home/hemc/Sem_8/spe/DebateLeagueBackend/src/main/java/debate/league/repositories/UserRepository.java
-/home/hemc/Sem_8/spe/DebateLeagueBackend/src/main/java/debate/league/classes/Post.java
-/home/hemc/Sem_8/spe/DebateLeagueBackend/src/main/java/debate/league/DebateLeagueApplication.java
-/home/hemc/Sem_8/spe/DebateLeagueBackend/src/main/java/debate/league/repositories/PostRepository.java
-/home/hemc/Sem_8/spe/DebateLeagueBackend/src/main/java/debate/league/classes/User.java
+/home/hemc/Sem_8/spe/spe_finalproject/DebateLeagueBackend/src/main/java/debate/league/repositories/PostRepository.java
+/home/hemc/Sem_8/spe/spe_finalproject/DebateLeagueBackend/src/main/java/debate/league/controller/PageController.java
+/home/hemc/Sem_8/spe/spe_finalproject/DebateLeagueBackend/src/main/java/debate/league/classes/Post.java
+/home/hemc/Sem_8/spe/spe_finalproject/DebateLeagueBackend/src/main/java/debate/league/classes/User.java
+/home/hemc/Sem_8/spe/spe_finalproject/DebateLeagueBackend/src/main/java/debate/league/DebateLeagueApplication.java
+/home/hemc/Sem_8/spe/spe_finalproject/DebateLeagueBackend/src/main/java/debate/league/repositories/UserRepository.java

@@ -8,12 +8,12 @@ public class Post{
     private int downvotes;
     private int child;
 
-    public Post(int post_id, String body, int upvotes, int downvotes, int child){
+    public Post(int post_id){
         this.post_id = post_id;
-        this.body = body;
-        this.upvotes = upvotes;
-        this.downvotes = downvotes;
-        this.child = child;
+        this.body = "";
+        this.upvotes = 0;
+        this.downvotes = 0;
+        this.child = -1;
     }
 
     public int getPostId(){
