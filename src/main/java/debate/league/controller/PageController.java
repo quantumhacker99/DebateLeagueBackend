@@ -43,7 +43,7 @@ public class PageController {
         nwPost.setBody("Hello World " + postId);
         nwPost.setUpvotes(0);
         nwPost.setDownvotes(0);
-        nwPost.setChild(0);
+        nwPost.setChild(Integer.parseInt(postId)+1);
 
         return nwPost;
     }
