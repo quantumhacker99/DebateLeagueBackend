@@ -47,6 +47,17 @@ public class PageController {
 
         return nwPost;
     }
+
+    @RequestMapping(value="/postProfile/{postId}", method=RequestMethod.POST)
+    @CrossOrigin
+    public @ResponseBody SendConfirmationPostDTO updatePostDetails(@RequestBody PostDTO post, @PathVariable String postId){
+        System.out.println(post.getBody());
+        System.out.println(post.getUpvotes());
+
+        SendConfirmationPostDTO response = new SendConfirmationPostDTO();
+        response.setSuccess(true);
+        return response;
+    }
 }
 
 
@@ -59,4 +70,10 @@ class PostDTO{
     private Integer upvotes;
     private Integer downvotes;
     private Integer child;
+}
+
+@Data
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+class SendConfirmationPostDTO{
+    private boolean success;
 }
