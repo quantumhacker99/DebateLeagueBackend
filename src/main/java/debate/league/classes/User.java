@@ -1,13 +1,28 @@
 package debate.league.classes;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Entity
+@NoArgsConstructor
 public class User{
-    private int user_id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long user_id;
     private String name;
     private String username;
     private String password;
     private String role;
 
-    public User(int user_id, String name, String username, String password, String role){
+    public User(Long user_id, String name, String username, String password, String role){
         this.user_id = user_id;
         this.name = name;
         this.username = username;
@@ -15,11 +30,13 @@ public class User{
         this.role = role;
     }
 
-    public int getUserId(){
+    @OneToMany(targetEntity = Post.class)
+
+    public Long getUserId(){
         return this.user_id;
     }
 
-    public void setUserId(int id){
+    public void setUserId(Long id){
         this.user_id = id;
     }
 

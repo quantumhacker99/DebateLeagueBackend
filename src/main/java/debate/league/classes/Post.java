@@ -1,26 +1,46 @@
 package debate.league.classes;
 
-public class Post{
+import javax.annotation.Generated;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-    private int post_id;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Entity
+@NoArgsConstructor
+public class Post{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long post_id;
     private String body;
     private int upvotes;
     private int downvotes;
     private int child;
+    private Long firstUserId;
+    private Long secondUserId;
 
-    public Post(int post_id){
+    public Post(Long post_id, int child, Long user1, Long user2){
         this.post_id = post_id;
         this.body = "";
         this.upvotes = 0;
         this.downvotes = 0;
-        this.child = -1;
+        this.child = child;
+        this.firstUserId = user1;
+        this.secondUserId = user2;
     }
 
-    public int getPostId(){
+    @ManyToOne(targetEntity = User.class)
+
+    public Long getPostId(){
         return this.post_id;
     }
 
-    public void setPostId(int post_id){
+    public void setPostId(Long post_id){
         this.post_id = post_id;
     }
 
@@ -54,6 +74,22 @@ public class Post{
 
     public void setChild(int child){
         this.child = child;
+    }
+
+    public Long getFirstUserId(){
+        return this.firstUserId;
+    }
+
+    public void setFirstUser(Long firstUser){
+        this.firstUserId = firstUser;
+    }
+
+    public Long getSecondUserId(){
+        return this.secondUserId;
+    }
+
+    public void setSecondUser(Long secondUser){
+        this.secondUserId = secondUser;
     }
 
 }
