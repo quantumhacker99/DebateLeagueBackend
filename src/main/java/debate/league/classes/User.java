@@ -5,30 +5,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long user_id;
     private String name;
-    private String username;
-    private String password;
-    private String role;
+    //private String username;
+    //private String password;
+    //private String role;
 
-    public User(Long user_id, String name, String username, String password, String role){
+    public User(Long user_id, String name){//, String username, String password, String role){
         this.user_id = user_id;
         this.name = name;
-        this.username = username;
+        /*this.username = username;
         this.password = password;
-        this.role = role;
+        this.role = role;*/
     }
+
+    @OneToOne(targetEntity = LoginDetails.class)
+    private LoginDetails loginDet;
 
     @OneToMany(targetEntity = Post.class)
 
@@ -48,7 +54,7 @@ public class User{
         this.name = name;
     }
 
-    public String getUsername(){
+    /*public String getUsername(){
         return this.username;
     }
 
@@ -70,6 +76,6 @@ public class User{
 
     public void setRole(String role){
         this.role = role;
-    }
+    }*/
     
 }

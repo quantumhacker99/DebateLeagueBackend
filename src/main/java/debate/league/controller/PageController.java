@@ -37,7 +37,7 @@ public class PageController {
         
     }
     
-    @RequestMapping(value="/postProfile/{postId}", method=RequestMethod.GET)
+    @RequestMapping(value="/api/postProfile/{postId}", method=RequestMethod.GET)
     @CrossOrigin
     public @ResponseBody PostDTO fetchPostDetails(@PathVariable String postId){
 
@@ -69,11 +69,10 @@ public class PageController {
         nwPost.setUpvotes(0);
         nwPost.setDownvotes(0);
         nwPost.setChild(Integer.parseInt(postId)+1);
-
         return nwPost;*/
     }
 
-    @RequestMapping(value="/postProfile/{postId}", method=RequestMethod.POST)
+    @RequestMapping(value="/api/postProfile/{postId}", method=RequestMethod.POST)
     @CrossOrigin
     public @ResponseBody SendConfirmationPostDTO submitPost(@RequestBody PostDTO updatedPost, @PathVariable String postId){
 

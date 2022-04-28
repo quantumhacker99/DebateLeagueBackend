@@ -1,6 +1,14 @@
+debate/league/initialconfig/InitialConfig.class
+debate/league/service/LoginDetailsService.class
+debate/league/repositories/PostRepository.class
+debate/league/controller/SendConfirmationPostDTO.class
+debate/league/repositories/LoginDetailsRepository.class
+debate/league/controller/PostDTO.class
 debate/league/classes/User.class
+debate/league/classes/LoginDetails.class
 debate/league/controller/PageController.class
+debate/league/controller/LstPostDTO.class
 debate/league/DebateLeagueApplication.class
 debate/league/repositories/UserRepository.class
+debate/league/service/PostService.class
 debate/league/classes/Post.class
-debate/league/repositories/PostRepository.class
