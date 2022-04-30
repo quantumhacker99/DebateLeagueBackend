@@ -16,14 +16,15 @@ public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long user_id;
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    private Long userId;
     private String name;
     private String username;
     private String password;
     private String role;
 
-    public User(Long user_id, String name, String username, String password, String role){
-        this.user_id = user_id;
+    public User(Long userId, String name, String username, String password, String role){
+        this.userId = userId;
         this.name = name;
         this.username = username;
         this.password = password;
@@ -33,11 +34,11 @@ public class User{
     @OneToMany(targetEntity = Post.class)
 
     public Long getUserId(){
-        return this.user_id;
+        return this.userId;
     }
 
     public void setUserId(Long id){
-        this.user_id = id;
+        this.userId = id;
     }
 
     public String getName(){

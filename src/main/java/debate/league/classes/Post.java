@@ -15,8 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Post{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long post_id;
+    // @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long postId;
+
     private String body;
     private int upvotes;
     private int downvotes;
@@ -25,7 +26,7 @@ public class Post{
     private Long secondUserId;
 
     public Post(Long post_id, int child, Long user1, Long user2){
-        this.post_id = post_id;
+        this.postId = post_id;
         this.body = "";
         this.upvotes = 0;
         this.downvotes = 0;
@@ -37,11 +38,11 @@ public class Post{
     @ManyToOne(targetEntity = User.class)
 
     public Long getPostId(){
-        return this.post_id;
+        return this.postId;
     }
 
     public void setPostId(Long post_id){
-        this.post_id = post_id;
+        this.postId = post_id;
     }
 
     public String getBody(){
