@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import debate.league.classes.Post;
 import debate.league.repositories.PostRepository;
 import debate.league.service.PostService;
+import debate.league.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -31,8 +32,10 @@ public class PageController {
 
 
     private PostService postService;
+    private UserService userService;
 
-    public PageController(PostService postService){
+    public PageController(UserService userService, PostService postService){
+        this.userService = userService;
         this.postService = postService;
         
     }
@@ -53,12 +56,23 @@ public class PageController {
 
         else {
             nwPost.setNull(false);
+
             nwPost.setPostId(post.get().getPostId());
             nwPost.setBody(post.get().getBody());
+
             nwPost.setUpvotes(post.get().getUpvotes());
             nwPost.setDownvotes(post.get().getDownvotes());
+
+            nwPost.setParent(post.get().getParent());
             nwPost.setChild(post.get().getChild());
-            System.out.println("GET Request made " + nwPost.getPostId() + " " + nwPost.getBody() + " " + nwPost.getUpvotes() + " " + nwPost.getDownvotes() + " " + nwPost.getChild());
+
+            nwPost.setUser(post.get().getUser().getUserId());
+            nwPost.setReplyUser(post.get().getReplyUserId());
+
+            System.out.println("GET Request made " + nwPost.getPostId() + " " + nwPost.getBody() + " " + 
+                                nwPost.getUpvotes() + " " + nwPost.getDownvotes() + " " + 
+                                nwPost.getParent() + " " + nwPost.getChild() + " " +
+                                nwPost.getUser() + nwPost.getReplyUser());
         }
 
 
@@ -90,9 +104,13 @@ public class PageController {
             Post localPostUpdate = localPost.get();
             
             localPostUpdate.setBody(updatedPost.getBody());
+
             localPostUpdate.setUpvotes(updatedPost.getUpvotes());
             localPostUpdate.setDownvotes(updatedPost.getDownvotes());
-            localPostUpdate.setChild(updatedPost.getChild());
+
+            //Parent won't change in an update anyways, so not setting here. User also will not change. 
+
+            localPostUpdate.setChild((long)updatedPost.getChild());
 
             postService.savePost(localPostUpdate);
 
@@ -100,8 +118,71 @@ public class PageController {
                                 + " " + localPostUpdate.getDownvotes() + " " + localPostUpdate.getChild());
             
             response.setSuccess(true);
+            response.setChild(localPostUpdate.getChild());
         }
         
+        return response;
+    }
+
+    @RequestMapping(value="/createPost", method=RequestMethod.POST)
+    @CrossOrigin
+    public @ResponseBody SendConfirmationPostDTO createNewPost(@RequestBody PostUsersDTO users){
+
+        SendConfirmationPostDTO response = new SendConfirmationPostDTO();
+        
+        Long userId = Long.parseLong(users.getUserId());
+        Long replyUserId = Long.parseLong(users.getReplyUserId());
+
+        Post newPost = new Post();
+        newPost.setParent((long)-1);
+        newPost.setUser(this.userService.getUserById(userId).get());
+        newPost.setReplyUserId(replyUserId);
+        //newPost.setReplyUser(this.userService.getUserById(replyUserId).get());
+
+        //Optional<Post> parentPost = this.postService.getPostById(parentId);
+        //Post localParentPost = parentPost.get();
+        postService.savePost(newPost);
+
+        response.setSuccess(true);
+        response.setChild(replyUserId);
+        
+        return response;
+    }
+
+    @RequestMapping(value="/createPost/{parent}", method=RequestMethod.POST)
+    @CrossOrigin
+    public @ResponseBody SendConfirmationPostDTO createReplyPost( @PathVariable String parent){
+
+        SendConfirmationPostDTO response = new SendConfirmationPostDTO();
+        Long parentId = Long.parseLong(parent);
+        Long replyUserId = this.postService.getPostById(parentId).get().getReplyUserId();
+        //Long.parseLong(replyUser);
+
+        Post newPost = new Post(parentId);
+        newPost.setParent(parentId);
+
+        newPost.setUser(this.userService.getUserById(replyUserId).get());
+        newPost.setReplyUserId(parentId);
+        //newPost.setReplyUser(this.userService.getUserById(parentId).get());
+
+        Optional<Post> parentPost = this.postService.getPostById(parentId);
+        Post localParentPost = parentPost.get();
+
+        if(parentPost.isEmpty() || localParentPost.getPostId() != parentId){
+            response.setSuccess(false);
+        }
+        else{
+            postService.savePost(newPost);
+
+            response.setSuccess(true);
+            response.setChild(newPost.getPostId());
+            response.setUserId(replyUserId);
+            response.setReplyId(parentId);
+
+            localParentPost.setChild(newPost.getPostId());
+
+            postService.savePost(localParentPost);
+        }
         return response;
     }
 }
@@ -119,11 +200,25 @@ class PostDTO{
     private String body;
     private Integer upvotes;
     private Integer downvotes;
-    private Integer child;
+    private Long parent;
+    private Long child;
+    private Long user;
+    private Long replyUser;
+}
+
+@Data
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+class PostUsersDTO{
+    private String userId;
+    private String replyUserId;
 }
 
 @Data
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 class SendConfirmationPostDTO{
     private boolean success;
+    private Long child;
+
+    private Long userId;
+    private Long replyId;
 }

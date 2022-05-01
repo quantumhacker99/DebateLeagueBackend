@@ -31,7 +31,7 @@ public class PostService {
     }    
 
     public void savePost(Post post){
-        postRepository.save(post);
+        postRepository.saveAndFlush(post);
     }
 
     public void deletePost(Long postId){
