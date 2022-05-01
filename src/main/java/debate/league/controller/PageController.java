@@ -55,10 +55,8 @@ public class PageController {
             nwPost.setNull(false);
             nwPost.setPostId(post.get().getPostId());
             nwPost.setBody(post.get().getBody());
-            nwPost.setUpvotes(post.get().getUpvotes());
-            nwPost.setDownvotes(post.get().getDownvotes());
             nwPost.setChild(post.get().getChild());
-            System.out.println("GET Request made " + nwPost.getPostId() + " " + nwPost.getBody() + " " + nwPost.getUpvotes() + " " + nwPost.getDownvotes() + " " + nwPost.getChild());
+            System.out.println("GET Request made " + nwPost.getPostId() + " " + nwPost.getBody() + " "  + " " + nwPost.getChild());
         }
 
 
@@ -89,14 +87,11 @@ public class PageController {
             Post localPostUpdate = localPost.get();
             
             localPostUpdate.setBody(updatedPost.getBody());
-            localPostUpdate.setUpvotes(updatedPost.getUpvotes());
-            localPostUpdate.setDownvotes(updatedPost.getDownvotes());
             localPostUpdate.setChild(updatedPost.getChild());
 
             postService.savePost(localPostUpdate);
 
-            System.out.println("Updated Post Body: " + localPostUpdate.getBody() + " " + localPostUpdate.getUpvotes()
-                                + " " + localPostUpdate.getDownvotes() + " " + localPostUpdate.getChild());
+            
             
             response.setSuccess(true);
         }
@@ -116,9 +111,10 @@ class PostDTO{
     private boolean isNull;
     private Long postId;
     private String body;
-    private Integer upvotes;
-    private Integer downvotes;
-    private Integer child;
+    private String title;
+    private String tags;
+    private Long child;
+    private Long parent;
 }
 
 @Data

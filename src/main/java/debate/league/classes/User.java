@@ -33,10 +33,11 @@ public class User{
         this.role = role;*/
     }
 
-    @OneToOne(targetEntity = LoginDetails.class)
+    @OneToOne(targetEntity = LoginDetails.class, mappedBy = "user")
     private LoginDetails loginDet;
 
-    @OneToMany(targetEntity = Post.class)
+    @OneToMany(targetEntity = Post.class, mappedBy = "user")
+    private List<Post> posts;
 
     public Long getUserId(){
         return this.user_id;

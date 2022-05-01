@@ -1,11 +1,7 @@
 package debate.league.classes;
 
 import javax.annotation.Generated;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import lombok.NoArgsConstructor;
 
@@ -16,25 +12,26 @@ import java.util.List;
 public class Post{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="post_id")
     private Long post_id;
     private String body;
-    private int upvotes;
-    private int downvotes;
-    private int child;
-    private Long firstUserId;
-    private Long secondUserId;
+    private Long child;
+    private Long parent;
 
-    public Post(Long post_id, int child, Long user1, Long user2){
+    private String tags;
+    private String title;
+
+    public Post(Long post_id, Long child, Long parent, String tags, String title){
         this.post_id = post_id;
         this.body = "";
-        this.upvotes = 0;
-        this.downvotes = 0;
         this.child = child;
-        this.firstUserId = user1;
-        this.secondUserId = user2;
+        this.parent = parent;
+        this.tags = tags;
+        this.title = title;
     }
 
     @ManyToOne(targetEntity = User.class)
+    private User user;
 
     public Long getPostId(){
         return this.post_id;
@@ -52,44 +49,33 @@ public class Post{
         this.body = body;
     }
 
-    public int getUpvotes(){
-        return this.upvotes;
+    public String getTitle(){
+        return this.title;
     }
 
-    public void setUpvotes(int upvotes){
-        this.upvotes = upvotes;
+    public void setTitle(String title){
+        this.title = title;
     }
 
-    public int getDownvotes(){
-        return this.downvotes;
+    public String getTags(){
+        return this.tags;
     }
 
-    public void setDownvotes(int downvotes){
-        this.downvotes = downvotes;
-    }  
-    
-    public int getChild(){
-        return this.child;
+    public void setTags(String tags){
+        this.title = tags;
     }
 
-    public void setChild(int child){
-        this.child = child;
-    }
+    public Long getChild(){return this.child;}
 
-    public Long getFirstUserId(){
-        return this.firstUserId;
-    }
+    public Long getParent(){return this.parent;}
 
-    public void setFirstUser(Long firstUser){
-        this.firstUserId = firstUser;
-    }
+    public void setChild(Long child){this.child=child;}
 
-    public Long getSecondUserId(){
-        return this.secondUserId;
-    }
+    public void setParent(Long parent){this.parent=parent;}
 
-    public void setSecondUser(Long secondUser){
-        this.secondUserId = secondUser;
-    }
+    public User getUser(){return this.user;}
+
+    public void setUser(User user){this.user = user;}
+
 
 }

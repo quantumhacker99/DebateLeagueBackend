@@ -3,6 +3,8 @@ package debate.league.classes;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,10 +17,12 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 public class LoginDetails implements UserDetails{
 
+    @Id
     private String username;
     private String password;
     private String email;
     private String role;
+
 
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
@@ -37,6 +41,9 @@ public class LoginDetails implements UserDetails{
         this.isCredentialsNonExpired = false;
         this.isEnabled = false;
     }
+
+    @OneToOne(targetEntity = User.class)
+    private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
