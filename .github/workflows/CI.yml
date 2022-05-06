@@ -29,8 +29,8 @@ jobs:
       with:
         image: matehate/debateleaguebackend
         registry: docker.io
-        username: matehate
-        password: chittiidea
+        username: ${{secrets.DOCKER_USERNAME}}
+        password: ${{secrets.DOCKER_PASSWORD}}
       
       
   
