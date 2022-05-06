@@ -40,6 +40,6 @@ jobs:
       env:
         ANSIBLE_SSH_KEY: ${{ secrets.SSH_KEY }}
       with:
-        args: ansible-playbook -i inventory deb-deploy.yml
+        args: ansible-playbook -i inventory -vvv deb-deploy.yml
       
   
