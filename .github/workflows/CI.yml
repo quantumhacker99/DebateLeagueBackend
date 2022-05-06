@@ -1,6 +1,6 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-#Using GitHub Actions
+
 name: Java CI with Maven
 
 on:
@@ -36,10 +36,16 @@ jobs:
         username: ${{secrets.DOCKER_USERNAME}}
         password: ${{secrets.DOCKER_PASSWORD}}
     - name: Run playbook
-      uses: jawher/action-ansible@2.9.7
-      env:
-        ANSIBLE_SSH_KEY: ${{ secrets.SSH_KEY }}
+      uses: dawidd6/action-ansible-playbook@v2
       with:
-        args: ansible-playbook -i inventory -vvv deb-deploy.yml
+        # Required, playbook filepath
+        playbook: deb-deploy.yml
+        key: ${{secrets.SSH_PRIVATE_KEY}}
+        # Optional, literal inventory file contents
+        inventory: |
+          [ubuntu18]
+          40.122.197.139 ansible_user=azureuser
+        options: |
+          --verbose
       
   
