@@ -35,7 +35,7 @@ jobs:
     - name: Run playbook
       uses: jawher/action-ansible@2.9.7
       env:
-        ANSIBLE_SSH_KEY: ${{ secrets.SSH }}
+        ANSIBLE_SSH_KEY: ${{ secrets.SSH_KEY }}
       with:
         args: ansible-playbook -i inventory deb-deploy.yml
       
