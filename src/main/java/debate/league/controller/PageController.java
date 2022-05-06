@@ -185,6 +185,57 @@ public class PageController {
         }
         return response;
     }
+
+    @RequestMapping(value="/createNewPost/{user}", method=RequestMethod.POST)
+    @CrossOrigin
+    public @ResponseBody SendConfirmationPostDTO createNewPost(@PathVariable String user){
+        Long parentId = (long)-1;
+        Long userId = Long.parseLong(user);
+        Long replyUserId = (long)-1;
+        //Long.parseLong(replyUser);
+
+        Post newPost = new Post();
+        newPost.setUser(this.userService.getUserById(userId).get());
+        newPost.setParent(parentId);
+        newPost.setBody("");
+        newPost.setChild((long)-1);
+        newPost.setReplyUserId(replyUserId);
+        //newPost.setReplyUser(this.userService.getUserById(parentId).get());
+
+        postService.savePost(newPost);
+
+        SendConfirmationPostDTO response = new SendConfirmationPostDTO();
+        response.setSuccess(true);
+        response.setChild(newPost.getPostId());
+        response.setUserId(userId);
+        response.setReplyId(replyUserId);
+        return response;
+    }
+
+    @RequestMapping(value="/fetchPosts", method=RequestMethod.GET)
+    @CrossOrigin
+    public @ResponseBody List<PostDTO> fetchHeadPostDetails(){
+        List<PostDTO> headPostDTOs= new ArrayList<PostDTO>();
+        List<Post> headPosts = this.postService.getAllHeadPosts();
+
+        for(Post post:headPosts){
+            PostDTO nwPostDTO = new PostDTO();
+            nwPostDTO.setNull(false);
+            nwPostDTO.setPostId(post.getPostId());
+            nwPostDTO.setBody(post.getBody());
+            nwPostDTO.setParent(post.getParent());
+            nwPostDTO.setChild(post.getChild());
+            nwPostDTO.setUpvotes(post.getUpvotes());
+            nwPostDTO.setDownvotes(post.getDownvotes());
+            nwPostDTO.setUser(post.getUser().getUserId());
+            nwPostDTO.setReplyUser(post.getReplyUserId());
+
+            headPostDTOs.add(nwPostDTO);
+        }
+
+        return headPostDTOs;
+    }
+
 }
 
 

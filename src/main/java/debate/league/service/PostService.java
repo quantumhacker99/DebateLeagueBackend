@@ -11,6 +11,8 @@ import debate.league.classes.Post;
 import debate.league.repositories.PostRepository;
 import lombok.NonNull;
 
+import java.util.stream.Collectors;
+
 @Service
 public class PostService {
 
@@ -24,6 +26,11 @@ public class PostService {
 
     public List<Post> getAllPosts(){
         return postRepository.findAll();
+    }
+
+    public List<Post> getAllHeadPosts(){
+        return postRepository.findAll().stream().filter(post -> post.getParent() == -1).collect(Collectors.toList());
+        
     }
 
     public Optional<Post> getPostById(Long postId){
