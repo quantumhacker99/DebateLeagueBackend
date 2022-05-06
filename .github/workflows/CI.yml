@@ -30,7 +30,7 @@ jobs:
         image: matehate/debateleaguebackend
         registry: docker.io
         username: matehate
-        password: password
+        password: chittiidea
       
       
   
