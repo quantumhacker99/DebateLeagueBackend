@@ -32,6 +32,11 @@ jobs:
         registry: docker.io
         username: ${{secrets.DOCKER_USERNAME}}
         password: ${{secrets.DOCKER_PASSWORD}}
-      
+    - name: Run playbook
+      uses: jawher/action-ansible@2.9.7
+      env:
+        ANSIBLE_SSH_KEY: ${{ secrets.SSH }}
+      with:
+        args: ansible-playbook -i inventory deb-deploy.yml
       
   
