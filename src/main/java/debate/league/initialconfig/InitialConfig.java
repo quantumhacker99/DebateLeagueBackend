@@ -37,21 +37,21 @@ public class InitialConfig {
             // user2.setLoginDet(login2);
             // user3.setLoginDet(login3);
 
-            Post post1 = new Post((long)-1,(long)-1,"#abcd","My life");
-            // Post post2 = new Post((long)-1,(long)1,"#abcd","Your life");
-            // post1.setChild((long)2);
-            // Post post3 = new Post((long)-1,(long)-1,"#abcd","Their life");
-            // Post post4 = new Post((long)-1,(long)3,"#abcd","Our life");
-            // post3.setChild((long)4);
+            // Post post1 = new Post((long)-1,(long)-1,"#abcd","My life");
+            // // Post post2 = new Post((long)-1,(long)1,"#abcd","Your life");
+            // // post1.setChild((long)2);
+            // // Post post3 = new Post((long)-1,(long)-1,"#abcd","Their life");
+            // // Post post4 = new Post((long)-1,(long)3,"#abcd","Our life");
+            // // post3.setChild((long)4);
 
-            post1.setUser(user1);
-            post1.setReplyUserId((long)2);
+            // post1.setUser(user1);
+            // post1.setReplyUserId((long)2);
             // post2.setUser(user2);
             // post3.setUser(user3);
             // post4.setUser(user2);
     
             userRepository.saveAllAndFlush(List.of(user1, user2, user3)); 
-            postRepository.saveAllAndFlush(List.of(post1));//, post2, post3, post4));
+            //postRepository.saveAllAndFlush(List.of(post1));//, post2, post3, post4));
         };
     }
 
