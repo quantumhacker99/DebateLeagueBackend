@@ -43,8 +43,6 @@ public class PageController {
     @RequestMapping(value="/postProfile/{postId}", method=RequestMethod.GET)
     @CrossOrigin
     public @ResponseBody PostDTO fetchPostDetails(@PathVariable String postId){
-
-      
         PostDTO nwPost = new PostDTO();
         Long reqPostId = Long.parseLong(postId);
         Optional<Post> post = this.postService.getPostById(reqPostId);
