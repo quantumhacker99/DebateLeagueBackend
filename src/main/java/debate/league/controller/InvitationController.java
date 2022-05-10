@@ -137,7 +137,7 @@ public class InvitationController {
 
     @RequestMapping(value="/confirmInvite/{invitationId}", method=RequestMethod.POST)
     @CrossOrigin
-    public @ResponseBody SendConfirmationInviteDTO confirmInvite(ApprovedInviteDTO response, @PathVariable String invitationId){
+    public @ResponseBody SendConfirmationInviteDTO confirmInvite(@RequestBody ApprovedInviteDTO response, @PathVariable String invitationId){
         
         SendConfirmationInviteDTO confirm = new SendConfirmationInviteDTO();
         Long inviteId = Long.parseLong(invitationId);
@@ -146,16 +146,21 @@ public class InvitationController {
 
         System.out.println("Approved response " + response);
 
-        if(response.getApproved().equalsIgnoreCase("true")){
-            Post reqPost = this.postService.getPostById(postId).get();
-            reqPost.setReplyUserId(invite.getRecipientId());
-            this.postService.savePost(reqPost);
-            confirm.setSuccess(true);
-            System.out.println("Invite status is true, what was sent to us was invitationID " + " " + "and response " + response);
+        try{
+            if(response.getApproved().equalsIgnoreCase("true")){
+                Post reqPost = this.postService.getPostById(postId).get();
+                reqPost.setReplyUserId(invite.getRecipientId());
+                this.postService.savePost(reqPost);
+                confirm.setSuccess(true);
+                System.out.println("Invite status is true, what was sent to us was invitationID " + " " + "and response " + response);
+            }
+            else{
+                confirm.setSuccess(false);
+                System.out.println("Invite status is false, what was sent to us was invitationID " + " " + "and response " + response);
+            }
         }
-        else{
-            confirm.setSuccess(false);
-            System.out.println("Invite status is false, what was sent to us was invitationID " + " " + "and response " + response);
+        catch(NullPointerException e){
+            System.out.println("Response data is null");
         }
 
         return confirm;
@@ -163,40 +168,6 @@ public class InvitationController {
 
 }
 
-
-@Data
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
-class PostDTO{
-    public boolean getNull() {
-        return isNull;
-    }
-    private boolean isNull;
-    private Long postId;
-    private String body;
-    private Integer upvotes;
-    private Integer downvotes;
-    private Long parent;
-    private Long child;
-    private Long user;
-    private Long replyUser;
-}
-
-@Data
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
-class PostUsersDTO{
-    private String userId;
-    private String replyUserId;
-}
-
-@Data
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
-class SendConfirmationPostDTO{
-    private boolean success;
-    private Long child;
-
-    private Long userId;
-    private Long replyId;
-}
 
 @Data
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor

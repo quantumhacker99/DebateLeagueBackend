@@ -74,7 +74,7 @@ public class JwtUtils {
 
     while (e.hasMoreElements()) {
       String param = e.nextElement();
-      System.out.println(param);
+      //System.out.println(param);
   }
 
     String headerAuth = request.getHeader("Authorization");
