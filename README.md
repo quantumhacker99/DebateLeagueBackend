@@ -1,8 +1,6 @@
 # DebateLeagueBackend
 Backend code for Debate League
 
-(Using a Makeshift database that only stores users and posts, bare minimum currently. Needs further work.)
-
 Steps to create MySQL database -
 
 Open MySQL through root login and type the below. 
