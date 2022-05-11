@@ -1,6 +1,0 @@
-debate/league/classes/User.class
-debate/league/controller/PageController.class
-debate/league/DebateLeagueApplication.class
-debate/league/repositories/UserRepository.class
-debate/league/classes/Post.class
-debate/league/repositories/PostRepository.class
