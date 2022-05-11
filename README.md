@@ -7,4 +7,4 @@ Open MySQL through root login and type the below.
 
 mysql > create database debateleague;
 mysql > create user 'springuser'@'localhost' identified by 'password';
-mysql > grant all on debateleague.* to 'springuer'@'localhost';
+mysql > grant all on debateleague.* to 'springuser'@'localhost';
