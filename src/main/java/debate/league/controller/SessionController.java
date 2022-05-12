@@ -4,14 +4,6 @@ import java.util.List;
 import java.util.Optional;
 // import java.lang.Long;
 
-// import com.anganwaadi.anganwaadi_server.classes.AnganwadiWorker;
-// import com.anganwaadi.anganwaadi_server.classes.RegistrationDetails;
-// import com.anganwaadi.anganwaadi_server.controller.DTO.WorkerDTO;
-// import com.anganwaadi.anganwaadi_server.security.JwtResponse;
-// import com.anganwaadi.anganwaadi_server.security.JwtUtils;
-// import com.anganwaadi.anganwaadi_server.service.AnganwaadiWorkerService;
-// import com.anganwaadi.anganwaadi_server.service.RegistrationDetailsService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -54,8 +46,6 @@ public class SessionController {
     private LoginDetailsService loginService;
     private User loggedUser;
 
-    // @Autowired
-    // AuthenticationManager authenticationManager;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -82,7 +72,6 @@ public class SessionController {
             new UsernamePasswordAuthenticationToken(dto.getUserID(), dto.getPassword()));
     
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        //String jwt = jwtUtils.generateJwtToken(authentication);
 
         
         this.loggedUser = this.userService.loadUserByUsername(dto.getUserID());

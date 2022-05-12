@@ -1,8 +1,5 @@
 package debate.league.security;
 
-
-//import com.anganwaadi.anganwaadi_server.service.RegistrationDetailsService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,22 +16,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import debate.league.service.UserService;
 
-// import com.bezkoder.springjwt.security.jwt.AuthEntryPointJwt;
-// import com.bezkoder.springjwt.security.jwt.AuthTokenFilter;
-// import com.bezkoder.springjwt.security.services.UserDetailsServiceImpl;
+
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-    // securedEnabled = true,
-    // jsr250Enabled = true,
     prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//   @Autowired
-//   RegistrationDetailsService userDetailsService;
-
-  //  @Autowired
-  //  private AuthEntryPointJwt unauthorizedHandler;
 
    @Bean
    public JwtFilter authenticationJwtTokenFilter() {
@@ -63,14 +51,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.cors().and().csrf().disable()
-      //.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
       .authorizeRequests().antMatchers("/login").permitAll()
       .anyRequest().authenticated();
-      //.and()
-      //.authorizeRequests().antMatchers("/login/**").permitAll()
-      // .authorizeRequests().antMatchers("*").permitAll()
-      //.anyRequest().authenticated();
+
 
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
   }
