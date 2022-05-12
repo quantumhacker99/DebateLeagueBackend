@@ -35,8 +35,6 @@ public class JwtUtils {
 
   public String generateJwtToken(String username) {
 
-    //LoginDetails userPrincipal = (LoginDetails) authentication.getPrincipal();
-
     return Jwts.builder()
         .setSubject(username)
         .setIssuedAt(new Date())
@@ -53,16 +51,8 @@ public class JwtUtils {
     try {
       Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
       return true;
-    } catch (SignatureException e) {
-      logger.error("Invalid JWT signature: {}", e.getMessage());
-    } catch (MalformedJwtException e) {
-      logger.error("Invalid JWT token: {}", e.getMessage());
-    } catch (ExpiredJwtException e) {
-      logger.error("JWT token is expired: {}", e.getMessage());
-    } catch (UnsupportedJwtException e) {
-      logger.error("JWT token is unsupported: {}", e.getMessage());
-    } catch (IllegalArgumentException e) {
-      logger.error("JWT claims string is empty: {}", e.getMessage());
+    } catch (Exception e) {
+      logger.error("Error in processing JWT:{}", e.getMessage());
     }
 
     return false;
@@ -74,7 +64,6 @@ public class JwtUtils {
 
     while (e.hasMoreElements()) {
       String param = e.nextElement();
-      //System.out.println(param);
   }
 
     String headerAuth = request.getHeader("Authorization");
@@ -85,33 +74,5 @@ public class JwtUtils {
 
     return null;
   }
-
-  // protected void jwtFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-  //     throws ServletException, IOException {
-  //   try {
-  //     String jwt = parseJwt(request);
-  //     if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-  //       String username = jwtUtils.getUserNameFromJwtToken(jwt);
-
-  //       UserDetails userDetails = userDetailsService.getDetailsById(username).get();
-  //       UsernamePasswordAuthenticationToken authentication =
-  //           new UsernamePasswordAuthenticationToken(
-  //               userDetails,
-  //               null,
-  //               userDetails.getAuthorities());
-  //       authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-  //       SecurityContextHolder.getContext().setAuthentication(authentication);
-  //     }
-  //   } catch (Exception e) {
-  //     logger.error("Cannot set user authentication: {}", e);
-  //   }
-
-  //   filterChain.doFilter(request, response);
-  // }
-
-
-
-
 
 }
