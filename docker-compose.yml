@@ -1,0 +1,44 @@
+version: "3.7"
+services:
+  servernode:
+    image: v2:latest
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 120s
+    ports:
+      - "3100:3100"
+    depends_on:
+    - "dbnode"
+    environment:
+      DATABASE_HOST: "dbnode"
+      DATABASE_PORT: "3306"
+      MYSQL_DATABASE: "debateleague"
+      MYSQL_USER: "springuser"
+      MYSQL_PASSWORD: "password"
+    networks:
+      net_ubuntu:
+        ipv4_address: 172.28.1.6
+  dbnode:
+    image: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "harsh1808!"
+      MYSQL_DATABASE: "debateleague"
+      MYSQL_USER: "springuser"
+      MYSQL_PASSWORD: "password"
+    networks:
+      net_ubuntu:
+        ipv4_address: 172.28.1.7
+
+networks:
+  net_ubuntu:
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.28.1.0/24

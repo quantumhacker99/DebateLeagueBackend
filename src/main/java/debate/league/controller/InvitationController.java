@@ -25,6 +25,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 @RestController
@@ -36,7 +38,7 @@ public class InvitationController {
     private PostService postService;
     private UserService userService;
     private InvitationService invitationService;
-
+    private static final Logger log_file = LogManager.getLogger(InvitationController.class);
     public InvitationController(UserService userService, PostService postService, InvitationService invitationService){
         this.userService = userService;
         this.postService = postService;

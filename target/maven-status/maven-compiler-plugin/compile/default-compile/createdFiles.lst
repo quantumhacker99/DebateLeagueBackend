@@ -1,7 +1,7 @@
 debate/league/service/LoginDetailsService.class
 debate/league/controller/InvitationController.class
-debate/league/repositories/PostRepository.class
 debate/league/security/JwtUtils.class
+debate/league/repositories/PostRepository.class
 debate/league/service/UserService.class
 debate/league/controller/SendConfirmationPostDTO.class
 debate/league/repositories/LoginDetailsRepository.class
@@ -19,8 +19,8 @@ debate/league/controller/authenticationManager.class
 debate/league/classes/Invitation.class
 debate/league/security/JwtFilter.class
 debate/league/controller/SendInviteDTO.class
-debate/league/classes/User.class
 debate/league/service/InvitationService.class
+debate/league/classes/User.class
 debate/league/classes/LoginDetails.class
 debate/league/controller/PageController.class
 debate/league/controller/PostUsersDTO.class
